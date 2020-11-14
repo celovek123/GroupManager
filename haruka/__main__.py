@@ -20,11 +20,9 @@ from haruka.modules.helper_funcs.misc import paginate_modules
 from haruka.modules.translations.strings import tld, tld_help 
 from haruka.modules.connection import connected
 
-PM_START = """Salam {}, mənim adım {}!
+PM_START = """Salam {}, Mən {}!
 
 Mən bir nəzarət botuyam və kömək üçün yaradıldım
-
-I'm group manager bot and Anti-spam for RR Players🃏
 
 Sahibim [Q̶ɄⱠƗ¥Ɇ⩔](t.me/sekret606)
 """
