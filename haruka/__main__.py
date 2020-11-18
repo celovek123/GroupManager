@@ -142,9 +142,9 @@ def send_start(bot, update):
     first_name = update.effective_user.first_name 
     text = PM_START
 
-    keyboard = [[InlineKeyboardButton(text="🇮🇳 Language", callback_data="set_lang_")]]
-    keyboard += [[InlineKeyboardButton(text="🛠 Reporting", callback_data="cntrl_panel_M"), 
-        InlineKeyboardButton(text="❔ Help", callback_data="help_back")]]
+    keyboard = [[InlineKeyboardButton(text="Dillər", callback_data="set_lang_")]]
+    keyboard += [[InlineKeyboardButton(text="Şikayət", callback_data="cntrl_panel_M"), 
+        InlineKeyboardButton(text="Kömək", callback_data="help_back")]]
 
     update.effective_message.reply_text(PM_START.format(escape_markdown(first_name), bot.first_name), reply_markup=InlineKeyboardMarkup(keyboard), disable_web_page_preview=True, parse_mode=ParseMode.MARKDOWN)
 
@@ -157,7 +157,7 @@ def control_panel(bot, update):
     # ONLY send help in PM
     if chat.type != chat.PRIVATE:
 
-        update.effective_message.reply_text("Contact me in PM to access the control panel.",
+        update.effective_message.reply_text("İdarəetmə panelinə daxil olmaq üçün PM-də mənə müraciət edin.",
                                             reply_markup=InlineKeyboardMarkup(
                                                 [[InlineKeyboardButton(text="Control Panel",
                                                                        url=f"t.me/{bot.username}?start=controlpanel")]]))
@@ -180,7 +180,7 @@ def control_panel(bot, update):
     if M_match:
         text = "*Control panel* 🛠"
 
-        keyboard = [[InlineKeyboardButton(text="👤 My settings", callback_data="cntrl_panel_U(1)")]]
+        keyboard = [[InlineKeyboardButton(text="👤 Ayarlar", callback_data="cntrl_panel_U(1)")]]
 
         #Show connected chat and add chat settings button
         conn = connected(bot, update, chat, user.id, need_admin=False)
@@ -217,7 +217,7 @@ def control_panel(bot, update):
 
             R = CHAT_SETTINGS[module].__user_settings__(bot, update, user)
 
-            text = "You has the following settings for the *{}* module:\n\n".format(
+            text = "*{}* Modulu üçün aşağıdakı parametrlərə sahibsiniz:\n\n".format(
                 CHAT_SETTINGS[module].__mod_name__) + R[0]
 
             keyboard = R[1]
@@ -226,7 +226,7 @@ def control_panel(bot, update):
             query.message.reply_text(text=text, arse_mode=ParseMode.MARKDOWN, reply_markup=InlineKeyboardMarkup(keyboard))
 
         elif back_match:
-            text = "*User control panel* 🛠"
+            text = "*İstifadəçi nəzarət paneli* 🛠"
             
             query.message.reply_text(text=text, parse_mode=ParseMode.MARKDOWN,
                     reply_markup=InlineKeyboardMarkup(paginate_modules(user.id, 0, USER_SETTINGS, "cntrl_panel_U")))
@@ -243,7 +243,7 @@ def control_panel(bot, update):
         if not conn == False:
             chat = bot.getChat(conn)
         else:
-            query.message.reply_text(text="Error with connection to chat")
+            query.message.reply_text(text="Birləşmədə xəta var")
             exit(1)
 
         if mod_match:
@@ -257,7 +257,7 @@ def control_panel(bot, update):
                 text = R
                 keyboard = []
 
-            text = "*{}* has the following settings for the *{}* module:\n\n".format(
+            text = "*{}* Modulu üçün aşağıdakı parametrlərə sahibsiniz:\n\n".format(
                 escape_markdown(chat.title), CHAT_SETTINGS[module].__mod_name__) + text
 
             keyboard += [[InlineKeyboardButton(text="Back", callback_data="cntrl_panel_G_back")]]
@@ -268,7 +268,7 @@ def control_panel(bot, update):
             chat_id = prev_match.group(1)
             curr_page = int(prev_match.group(2))
             chat = bot.get_chat(chat_id)
-            query.message.reply_text(tld(user.id, "send-group-settings").format(chat.title),
+            query.message.reply_text(tld(user.id, "qrup-parametrləri göndər").format(chat.title),
                                     reply_markup=InlineKeyboardMarkup(
                                         paginate_modules(curr_page - 1, 0, CHAT_SETTINGS, "cntrl_panel_G",
                                                         chat=chat_id)))
@@ -277,7 +277,7 @@ def control_panel(bot, update):
             chat_id = next_match.group(1)
             next_page = int(next_match.group(2))
             chat = bot.get_chat(chat_id)
-            query.message.reply_text(tld(user.id, "send-group-settings").format(chat.title),
+            query.message.reply_text(tld(user.id, "qrup-parametrləri göndər").format(chat.title),
                                     reply_markup=InlineKeyboardMarkup(
                                         paginate_modules(next_page + 1, 0, CHAT_SETTINGS, "cntrl_panel_G",
                                                         chat=chat_id)))
